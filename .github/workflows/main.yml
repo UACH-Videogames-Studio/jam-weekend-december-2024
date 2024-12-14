@@ -1,0 +1,106 @@
+name: Test and Build Unity 
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: [ "main", "development" ]
+  pull_request:
+    branches: [ "main", "development" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+
+  test:
+    name: Test my project 🧪
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write 
+      checks: write
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      # Cache
+      - uses: actions/cache@v4 # Change to v3 if necessary
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
+
+      # Test
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+  
+  buildForAllSupportedPlatforms:
+    name: Build for ${{ matrix.targetPlatform }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write 
+      checks: write
+      # packages: write
+      # pull-requests: write
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:
+          # - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
+          # - StandaloneWindows # Build a Windows standalone.
+          - StandaloneWindows64 # Build a Windows 64-bit standalone.
+          # - StandaloneLinux64 # Build a Linux 64-bit standalone.
+          # - iOS # Build an iOS player.
+          - Android # Build an Android .apk standalone app.
+          - WebGL # WebGL.
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+      - uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ matrix.targetPlatform }}
+          restore-keys: Library-
+          
+      # Free space
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          # this might remove tools that are actually needed,
+          # if set to "true" but frees about 6 GB
+          tool-cache: false
+          
+          # all of these default to true, but feel free to set to
+          # "false" if necessary for your workflow
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+          
+      - uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: ${{ matrix.targetPlatform }}
+          # allowDirtyBuild: true # THIS SHOULDN'T BE USED, BUT I'M VERY DESPERATE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Build-${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
