@@ -1634,7 +1634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10485b2a2328927478dcecbecafa938f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linkedObject: {fileID: 743462515}
+  objectToPushup: {fileID: 743462515}
   moveDownDistance: 0.25
   moveUpDistance: 4
   moveSpeed: 5
