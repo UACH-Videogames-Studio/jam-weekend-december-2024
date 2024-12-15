@@ -5,72 +5,53 @@ using UnityEngine;
 public class GhostMovement : MonoBehaviour
 {
 
-    public Vector2 movement;
+    public float movementSpeed;
 
-    private Rigidbody2D rb2D;
-
-    public float velocidadMovimiento;
-
-    public bool mirandoDerecha = true;
-
-    public float fuerzaSalto;
-
-    public LayerMask queEsSuelo;
-    public Transform controladorSuelo;
-    public Vector3 dimensionesCaja;
-    public bool enSuelo;
+    public bool isLookingRight = true;
 
     public Transform initialAnchorPoint;
 
-    public void GivenInputs(InputObject inputs)
-    {
-        movement = inputs.movement;
-    }
+
+    private Rigidbody2D rb2D;
+    private SpriteRenderer spriteRenderer;
+
+    private Vector2 movement;
 
     private void Start(){
         transform.position=initialAnchorPoint.position;
         rb2D=GetComponent<Rigidbody2D>();
+        spriteRenderer=GetComponent<SpriteRenderer>();
     }
     private void Update()
     {
         if (movement.magnitude != 0)
         {
             AdjustFaceOrientation(movement.x);
-            enSuelo = Physics2D.OverlapBox(controladorSuelo.position, dimensionesCaja, 0f, queEsSuelo);
         }
     }
+    
+    public void GivenInputs(InputObject inputs)
+    {
+        movement = inputs.movement;
+    }
+
 
     private void FixedUpdate()
     {
-        rb2D.velocity = new Vector2(movement.x,movement.y)*velocidadMovimiento;
+        rb2D.velocity = new Vector2(movement.x,movement.y)*movementSpeed;
     }
 
     private void AdjustFaceOrientation(float movementX)
     {
-        if (movementX > 0 && !mirandoDerecha)
+        if (movementX > 0 && !isLookingRight)
         {
-            Girar();
+            spriteRenderer.flipX=true;
         }
-        else if (movementX < 0 && mirandoDerecha)
+        else if (movementX < 0 && isLookingRight)
         {
-            Girar();
+            spriteRenderer.flipX=false;
         }
     }
-
-    private void Girar()
-    {
-        mirandoDerecha = !mirandoDerecha;
-        Vector3 escala = transform.localScale;
-        escala.x *= -1;
-        transform.localScale = escala;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(controladorSuelo.position, dimensionesCaja);
-    }
-
     
     public void ResetInputs()
     {

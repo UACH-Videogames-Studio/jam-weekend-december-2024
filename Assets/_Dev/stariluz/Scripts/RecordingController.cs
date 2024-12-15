@@ -24,6 +24,5 @@ public class RecordingController : MonoBehaviour
     public void ResetPlayer()
     {
         selectedPlayer.GetComponent<ActorObject>().Reset();
-
     }
 }
