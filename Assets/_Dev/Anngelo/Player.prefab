@@ -172,17 +172,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b9fee31817e394bbf44904a38aef1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direccion: {x: 0, y: 0}
+  direction: {x: 0, y: 0}
   rb2D: {fileID: 8911635817736347918}
-  velocidadMovimiento: 6
-  mirandoDerecha: 0
-  fuerzaSalto: 10
-  queEsSuelo:
+  movSpeed: 0
+  lookRight: 0
+  jumpForce: 0
+  whatIsFloor:
     serializedVersion: 2
     m_Bits: 0
-  controladorSuelo: {fileID: 9127396236096995933}
-  dimensionesCaja: {x: 2.3, y: 0.62, z: 0}
-  enSuelo: 0
+  floorController: {fileID: 0}
+  boxDimensions: {x: 0, y: 0, z: 0}
+  onFloor: 0
 --- !u!1 &7141003548449699672
 GameObject:
   m_ObjectHideFlags: 0
