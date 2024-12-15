@@ -5,16 +5,16 @@ public class PushUpPlatform : MonoBehaviour
 {
     public GameObject objectToPushup;
     public float moveDownDistance = 0.5f; // Distancia que el PushUpObject se moverá hacia abajo
-    public float moveUpDistance = 4f;    // Distancia que el linkedObject se moverá hacia arriba
+    public float moveUpDistance = 4f;    // Distancia que el objectToPushup se moverá hacia arriba
     public float moveSpeed = 0.5f;
 
     private bool isColliding = false;
     private Vector3 initialPositionPush; // Posición inicial del PushUpObject
-    private Vector3 initialPositionLinked; // Posición inicial del linkedObject
+    private Vector3 initialPositionLinked; // Posición inicial del objectToPushup
     private Vector3 targetPositionDown;  // Posición objetivo hacia abajo
-    private Vector3 targetPositionUp;    // Posición objetivo hacia arriba para el linkedObject
+    private Vector3 targetPositionUp;    // Posición objetivo hacia arriba para el objectToPushup
     private Coroutine pushCoroutine;     // Corutina para manejar PushUpObject
-    private Coroutine linkedCoroutine;   // Corutina para manejar linkedObject
+    private Coroutine linkedCoroutine;   // Corutina para manejar objectToPushup
 
     private void Start()
     {
@@ -37,7 +37,7 @@ public class PushUpPlatform : MonoBehaviour
             {
                 targetPositionUp = initialPositionLinked + Vector3.up * moveUpDistance;
 
-                // Detener cualquier movimiento anterior y empezar uno nuevo para linkedObject
+                // Detener cualquier movimiento anterior y empezar uno nuevo para objectToPushup
                 if (linkedCoroutine != null)
                 {
                     StopCoroutine(linkedCoroutine);
