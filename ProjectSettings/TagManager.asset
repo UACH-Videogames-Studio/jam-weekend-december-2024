@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - PushUpObject
+  - Ghost
+  - CameraCollisions
   layers:
   - Default
   - TransparentFX
@@ -12,9 +14,8 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Goal
+  - GhostCollisions
   - 
   - 
   - 

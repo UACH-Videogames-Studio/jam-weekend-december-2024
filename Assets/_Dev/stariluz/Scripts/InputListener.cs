@@ -9,7 +9,7 @@ public class InputListener : MonoBehaviour
     private bool keyPressed;
     private Vector2 direction;
 
-    public Controles input;
+    public GhostControls input;
       
     private void Awake()
     {
@@ -19,13 +19,13 @@ public class InputListener : MonoBehaviour
     private void OnEnable()
     {
         input.Enable();
-        input.Movimiento.Saltar.started += _ => RecordJump();
+        input.Movement.Jump.started += _ => RecordJump();
     }
 
     private void OnDisable()
     {
         input.Disable();
-        input.Movimiento.Saltar.started -= _ => RecordJump();
+        input.Movement.Jump.started -= _ => RecordJump();
     }
 
     public void RecordJump()
@@ -34,7 +34,7 @@ public class InputListener : MonoBehaviour
     }
     public void GetInputs()
     {
-        direction=input.Movimiento.Mover.ReadValue<Vector2>();
+        direction=input.Movement.Move.ReadValue<Vector2>();
     }
 
     public InputObject GetInputObject()
