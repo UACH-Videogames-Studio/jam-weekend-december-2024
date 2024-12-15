@@ -28,7 +28,8 @@ public class ActorObject : MonoBehaviour
     {
         PLAYING,
         PLAYBACK,
-        RESET
+        RESET,
+        DISABLED,
 
     }
     public ActorState currentState;
@@ -116,6 +117,12 @@ public class ActorObject : MonoBehaviour
     {
         ghostMovement.Reset();
         currentState = ActorState.RESET;
+        inputListener.ResetInput();
+    }
+    public void Disable()
+    {
+        ghostMovement.Disable();
+        currentState = ActorState.DISABLED;
         inputListener.ResetInput();
     }
 }

@@ -15,12 +15,16 @@ public class RecordingController : MonoBehaviour
         selectedPlayer.GetComponent<ActorObject>().Recording();
     }
 
-    public void startPlayback()
+    public void StartPlayback()
     {
         ResetPlayer();
         selectedPlayer.GetComponent<ActorObject>().Playback();
     }
 
+    public void DisablePlayer()
+    {
+        selectedPlayer.GetComponent<ActorObject>().Disable();
+    }
     public void ResetPlayer()
     {
         selectedPlayer.GetComponent<ActorObject>().Reset();
