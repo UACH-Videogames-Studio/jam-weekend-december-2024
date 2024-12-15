@@ -183,6 +183,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7841599199878687254, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
+      propertyPath: movSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7841599199878687254, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
+      propertyPath: jumpForce
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7841599199878687254, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
+      propertyPath: floorController
+      value: 
+      objectReference: {fileID: 486417330}
     - target: {fileID: 9127396236096995933, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -295,6 +307,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &486417330 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9127396236096995933, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
+  m_PrefabInstance: {fileID: 381480117}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1029433189
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,8 +589,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10485b2a2328927478dcecbecafa938f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToPushUp: {fileID: 1611415205}
-  moveDistance: 1
+  linkedObject: {fileID: 0}
+  moveDownDistance: 1
+  moveUpDistance: 4
   moveSpeed: 2
 --- !u!1 &1611415205
 GameObject:
