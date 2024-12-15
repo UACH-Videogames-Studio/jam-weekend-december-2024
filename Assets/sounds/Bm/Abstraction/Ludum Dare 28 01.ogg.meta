@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 67e436671bce4984b958a63b665a5340
+=======
+<<<<<<< Updated upstream
+guid: 656251e9d7a4fa34491f864180cba0cc
+=======
+guid: 89bbb35d340cc1a439c78cf11c0c3829
+>>>>>>> Stashed changes
+>>>>>>> 642c8636aff1d5453bf8911ac56ff903c2b6f0a5
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7

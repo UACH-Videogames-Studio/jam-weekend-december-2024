@@ -35,6 +35,24 @@ public class WallUp : MonoBehaviour
         }
     }
 
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ghost") && !isMoving)
+        {
+            // Alterna entre subir y regresar
+            if (moveUp)
+            {
+                StartCoroutine(MoveWall(wallToUp.transform.position + new Vector3(0, -distance, 0))); // Mover hacia arriba
+            }
+            else
+            {
+                StartCoroutine(MoveWall(originalPosition)); // Regresar a la posición inicial
+            }
+
+            moveUp = !moveUp; // Cambia el estado para el próximo movimiento
+        }
+    }
+
     IEnumerator MoveWall(Vector3 targetPosition)
     {
         isMoving = true; // Bloquea movimientos simultáneos
