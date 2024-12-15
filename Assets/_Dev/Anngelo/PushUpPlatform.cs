@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PushUpPlatform : MonoBehaviour
 {
+    public string pushUpTag = "ToPushUp";
     public GameObject objectToPushup;
     public float moveDownDistance = 0.5f; // Distancia que el PushUpObject se moverá hacia abajo
     public float moveUpDistance = 4f;    // Distancia que el objectToPushup se moverá hacia arriba
