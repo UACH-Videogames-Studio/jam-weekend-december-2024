@@ -1,82 +1,92 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PushUpPlatform : MonoBehaviour
 {
-    public GameObject linkedObject;  // Objeto que se moverá hacia arriba
-    public float moveDownDistance = 1f; // Distancia que el PushUpObject se moverá hacia abajo
-    public float moveUpDistance = 4f;   // Distancia que el linkedObject se moverá hacia arriba
-    public float moveSpeed = 2f;        // Velocidad del movimiento
+    public GameObject objectToPushup;
+    public float moveDownDistance = 0.5f; // Distancia que el PushUpObject se moverá hacia abajo
+    public float moveUpDistance = 4f;    // Distancia que el linkedObject se moverá hacia arriba
+    public float moveSpeed = 0.5f;
 
-    private bool isMoving = false;  // Controla si el movimiento está en curso
-    private Vector3 initialPositionPush; // Guarda la posición inicial del objeto con el que se colisiona
-    private Vector3 initialPositionLinked; // Guarda la posición inicial del objeto vinculado
-    private Vector3 targetPositionDown; // Posición objetivo hacia abajo
-    private Vector3 targetPositionUp;   // Posición objetivo hacia arriba para el objeto vinculado
+    private bool isColliding = false;
+    private Vector3 initialPositionPush; // Posición inicial del PushUpObject
+    private Vector3 initialPositionLinked; // Posición inicial del linkedObject
+    private Vector3 targetPositionDown;  // Posición objetivo hacia abajo
+    private Vector3 targetPositionUp;    // Posición objetivo hacia arriba para el linkedObject
+    private Coroutine pushCoroutine;     // Corutina para manejar PushUpObject
+    private Coroutine linkedCoroutine;   // Corutina para manejar linkedObject
 
-    void Start()
+    private void Start()
     {
-        // Inicializa las posiciones originales de los objetos
-        if (linkedObject != null)
+        // Inicializar posiciones originales
+        if (objectToPushup != null)
         {
-            initialPositionLinked = linkedObject.transform.position;
+            initialPositionLinked = objectToPushup.transform.position;
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("PushUpObject") && !isMoving)
+        if (collision.gameObject.CompareTag("PushUpObject"))
         {
-            // Configurar las posiciones iniciales y finales
-            initialPositionPush = collision.gameObject.transform.position;
+            isColliding = true; // Activar colisión
+            initialPositionPush = collision.transform.position;
             targetPositionDown = initialPositionPush + Vector3.down * moveDownDistance;
 
-            if (linkedObject != null)
+            if (objectToPushup != null)
             {
                 targetPositionUp = initialPositionLinked + Vector3.up * moveUpDistance;
+
+                // Detener cualquier movimiento anterior y empezar uno nuevo para linkedObject
+                if (linkedCoroutine != null)
+                {
+                    StopCoroutine(linkedCoroutine);
+                }
+                linkedCoroutine = StartCoroutine(SmoothMove(objectToPushup, targetPositionUp));
             }
 
-            // Inicia el movimiento hacia las posiciones objetivo
-            StartCoroutine(MoveObjects(collision.gameObject, targetPositionDown, targetPositionUp));
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("PushUpObject") && !isMoving)
-        {
-            // Regresa los objetos a sus posiciones originales
-            StartCoroutine(MoveObjects(collision.gameObject, initialPositionPush, initialPositionLinked));
-        }
-    }
-
-    IEnumerator MoveObjects(GameObject pushObject, Vector3 pushTarget, Vector3 linkedTarget)
-    {
-        isMoving = true;
-
-        // Movimiento simultáneo
-        while (Vector3.Distance(pushObject.transform.position, pushTarget) > 0.01f)
-        {
-            // Mover el objeto con el que se colisionó
-            pushObject.transform.position = Vector3.MoveTowards(pushObject.transform.position, pushTarget, moveSpeed * Time.deltaTime);
-
-            // Mover el objeto vinculado si está configurado
-            if (linkedObject != null)
+            // Detener cualquier movimiento anterior y empezar uno nuevo para PushUpObject
+            if (pushCoroutine != null)
             {
-                linkedObject.transform.position = Vector3.MoveTowards(linkedObject.transform.position, linkedTarget, moveSpeed * Time.deltaTime);
+                StopCoroutine(pushCoroutine);
+            }
+            pushCoroutine = StartCoroutine(SmoothMove(collision.gameObject, targetPositionDown));
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("PushUpObject"))
+        {
+            isColliding = false; // Desactivar colisión
+            if (objectToPushup != null)
+            {
+                targetPositionUp = initialPositionLinked; // Regresar a posición original si no hay colisión
+
+                // Detener cualquier movimiento en curso
+                if (linkedCoroutine != null)
+                {
+                    StopCoroutine(linkedCoroutine);
+                }
+                linkedCoroutine = StartCoroutine(SmoothMove(objectToPushup, initialPositionLinked));
             }
 
-            yield return null; // Espera un frame antes de continuar
+            if (pushCoroutine != null)
+            {
+                StopCoroutine(pushCoroutine);
+            }
+            pushCoroutine = StartCoroutine(SmoothMove(collision.gameObject, initialPositionPush));
         }
+    }
 
-        // Asegurar que las posiciones finales se alcancen
-        pushObject.transform.position = pushTarget;
-        if (linkedObject != null)
+    private IEnumerator SmoothMove(GameObject obj, Vector3 target)
+    {
+        while (Vector3.Distance(obj.transform.position, target) > 0.01f)
         {
-            linkedObject.transform.position = linkedTarget;
+            obj.transform.position = Vector3.Lerp(obj.transform.position, target, moveSpeed * Time.deltaTime);
+            yield return null; // Esperar un frame
         }
 
-        isMoving = false;
+        obj.transform.position = target; // Asegurar posición exacta al finalizar
     }
 }

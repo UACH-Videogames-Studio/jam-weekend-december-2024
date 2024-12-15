@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2623954337970843720, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5758566892427216819, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.11070409
@@ -145,11 +149,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5758566892427216819, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.47
+      value: -1.88
       objectReference: {fileID: 0}
     - target: {fileID: 5758566892427216819, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.55
+      value: -2.37
       objectReference: {fileID: 0}
     - target: {fileID: 5758566892427216819, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
       propertyPath: m_LocalPosition.z
@@ -185,16 +189,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7841599199878687254, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
       propertyPath: movSpeed
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7841599199878687254, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
       propertyPath: jumpForce
-      value: 8
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7841599199878687254, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
+      propertyPath: lookRight
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7841599199878687254, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
       propertyPath: floorController
       value: 
       objectReference: {fileID: 486417330}
+    - target: {fileID: 7841599199878687254, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
+      propertyPath: whatIsFloor.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 9127396236096995933, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -226,6 +238,7 @@ GameObject:
   - component: {fileID: 460690996}
   - component: {fileID: 460690995}
   - component: {fileID: 460690994}
+  - component: {fileID: 460690997}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -307,6 +320,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &460690997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460690993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
 --- !u!4 &486417330 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9127396236096995933, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
@@ -323,7 +380,7 @@ GameObject:
   - component: {fileID: 1029433192}
   - component: {fileID: 1029433191}
   - component: {fileID: 1029433190}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -453,8 +510,9 @@ GameObject:
   - component: {fileID: 1430273196}
   - component: {fileID: 1430273195}
   - component: {fileID: 1430273194}
-  m_Layer: 0
-  m_Name: Square
+  - component: {fileID: 1430273198}
+  m_Layer: 3
+  m_Name: PushUp
   m_TagString: PushUpObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -545,7 +603,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.16135636, g: 0.33230448, b: 0.9245283, a: 1}
   m_FlipX: 0
@@ -566,12 +624,39 @@ Transform:
   m_GameObject: {fileID: 1430273193}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.373, y: -3.291, z: 0}
+  m_LocalPosition: {x: -5.373, y: -4.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &1430273198
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430273193}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1588696728 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2623954337970843720, guid: b364cb7116d311a4b85f23ba8b42d9ac, type: 3}
@@ -589,10 +674,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10485b2a2328927478dcecbecafa938f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linkedObject: {fileID: 0}
-  moveDownDistance: 1
+  objectToPushup: {fileID: 1611415205}
+  moveDownDistance: 0
   moveUpDistance: 4
-  moveSpeed: 2
+  moveSpeed: 0.4
 --- !u!1 &1611415205
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,8 +689,8 @@ GameObject:
   - component: {fileID: 1611415208}
   - component: {fileID: 1611415207}
   - component: {fileID: 1611415206}
-  m_Layer: 0
-  m_Name: Square (1)
+  m_Layer: 3
+  m_Name: ToPushUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -717,7 +802,7 @@ Transform:
   m_GameObject: {fileID: 1611415205}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.49, y: -2.38, z: 0}
+  m_LocalPosition: {x: 3.49, y: -3.291, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -736,7 +821,7 @@ GameObject:
   - component: {fileID: 1669156217}
   - component: {fileID: 1669156221}
   - component: {fileID: 1669156220}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlatformMove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
