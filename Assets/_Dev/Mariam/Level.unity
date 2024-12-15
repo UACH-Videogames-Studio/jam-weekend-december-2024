@@ -150,7 +150,7 @@ Transform:
   m_GameObject: {fileID: 7154470}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.6320505, y: -6.934537, z: 0}
+  m_LocalPosition: {x: -5.6320505, y: -7.68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1471,17 +1471,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b9fee31817e394bbf44904a38aef1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direccion: {x: 0, y: 0}
+  direction: {x: 0, y: 0}
   rb2D: {fileID: 833354709}
-  velocidadMovimiento: 6
-  mirandoDerecha: 0
-  fuerzaSalto: 5
-  queEsSuelo:
+  movSpeed: 8
+  lookRight: 0
+  jumpForce: 6
+  whatIsFloor:
     serializedVersion: 2
     m_Bits: 8
-  controladorSuelo: {fileID: 172176028}
-  dimensionesCaja: {x: 1.1, y: 0.3, z: 0}
-  enSuelo: 0
+  floorController: {fileID: 172176028}
+  boxDimensions: {x: 0, y: 0, z: 0}
+  onFloor: 0
 --- !u!50 &833354709
 Rigidbody2D:
   serializedVersion: 4
@@ -1634,9 +1634,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10485b2a2328927478dcecbecafa938f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToPushUp: {fileID: 743462515}
-  moveDistance: 3
-  moveSpeed: 2
+  linkedObject: {fileID: 743462515}
+  moveDownDistance: 0
+  moveUpDistance: 4
+  moveSpeed: 5
 --- !u!1 &863424402
 GameObject:
   m_ObjectHideFlags: 0
