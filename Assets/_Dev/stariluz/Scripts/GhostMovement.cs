@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class GhostMovement : MonoBehaviour
 {
-
     public float movementSpeed;
-
-    public bool isLookingRight = true;
-
     public Transform initialAnchorPoint;
 
 
@@ -17,10 +13,11 @@ public class GhostMovement : MonoBehaviour
 
     private Vector2 movement;
 
-    private void Start(){
-        transform.position=initialAnchorPoint.position;
-        rb2D=GetComponent<Rigidbody2D>();
-        spriteRenderer=GetComponent<SpriteRenderer>();
+    private void Start()
+    {
+        transform.position = initialAnchorPoint.position;
+        rb2D = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     private void Update()
     {
@@ -29,7 +26,7 @@ public class GhostMovement : MonoBehaviour
             AdjustFaceOrientation(movement.x);
         }
     }
-    
+
     public void GivenInputs(InputObject inputs)
     {
         movement = inputs.movement;
@@ -38,29 +35,29 @@ public class GhostMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb2D.velocity = new Vector2(movement.x,movement.y)*movementSpeed;
+        rb2D.velocity = new Vector2(movement.x, movement.y) * movementSpeed;
     }
 
     private void AdjustFaceOrientation(float movementX)
     {
-        if (movementX > 0 && !isLookingRight)
+        if (movementX > 0)
         {
-            spriteRenderer.flipX=true;
+            spriteRenderer.flipX = true;
         }
-        else if (movementX < 0 && isLookingRight)
+        else if (movementX < 0)
         {
-            spriteRenderer.flipX=false;
+            spriteRenderer.flipX = false;
         }
-    }
-    
-    public void ResetInputs()
-    {
-        movement = Vector2.zero;
     }
 
     public void Reset()
     {
-        ResetInputs();
+        movement = Vector2.zero;
         transform.position = initialAnchorPoint.position;
+    }
+
+    public void Disable()
+    {
+        movement = Vector2.zero;
     }
 }

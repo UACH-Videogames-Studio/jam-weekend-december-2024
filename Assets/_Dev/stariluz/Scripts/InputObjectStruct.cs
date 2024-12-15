@@ -7,7 +7,7 @@ public struct InputObject
 
     public Vector2 movement;
 
-    public InputObject(Vector2 movement, bool isBtnPressed)
+    public InputObject(Vector2 movement)
     {
         this.movement = movement;
 
